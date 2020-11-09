@@ -1,3 +1,11 @@
+# data files and figures
+.csv
+.xlsx
+.jpg
+.jpeg
+.png
+.pdf
+
 # History files
 .Rhistory
 .Rapp.history
