@@ -43,6 +43,7 @@ sp3<- sp2 %>%
     ab==0 ~ "absent",
     is.na(ab)~"absent"))
 
+write_rds(sp3,"02_wdata/sponges_pa_Nov162020.rds")
 # graph of silica by presence/absence for each sponge species
 
 ggplot(data=sp3)+
@@ -66,4 +67,22 @@ p3<-ggplot(data=sp3 %>%
 p3+
   geom_violin(aes(x=pa,y=Sulfate))+
   facet_wrap(~sponges)
+
+
+
+# for loop to look at all environmental variables
+# steph to trouble shoot this
+for(i in 4:24){
+  t1<-cbind(sp3$pa,sp3[,i],sp3$sponges)
+  colnames(t1)<-c("pa","env","sponges")
+  ylabel<-colnames(sp3)[i]
+  ggplot(data=t1)+
+    geom_violin(aes(x=pa,y=env))+
+    ylab(ylabel)+
+    facet_wrap(~sponges)
+  ggsave(paste0("04_figures/",ylabel,".jpg"))
+}
+
+
+
 
