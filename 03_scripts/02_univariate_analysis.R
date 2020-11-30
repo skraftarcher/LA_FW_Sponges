@@ -70,3 +70,38 @@ ggplot(data=sp.pa)+
 # Th occurs at higher Cl 
 # Tl and Tp have opposite distributions.
 
+# Look at how often you've found each sponge
+table(sp.pa$sponges,sp.pa$pa)
+
+pa2<-sp.pa%>%
+  filter(sponges %in% c("Efr","Th"))%>%
+  pivot_longer(temp:Ca,names_to = "env",values_to = "conc")%>%
+  filter(!is.na(conc))
+           
+
+ggplot(data=pa2)+
+  geom_violin(aes(x=pa,y=conc))+
+  facet_grid(env~sponges,scales = "free")
+
+
+# now we can start looking at these two sponge species
+
+pa.efr<-sp.pa%>%
+  filter(sponges %in% c("Efr"))%>%
+  select(pa,movement:Ca)%>%
+  mutate(pa=case_when(
+    pa=="absent"~0,
+    pa!="absent"~1))
+
+efr.logit<-glm(pa~.,data=pa.efr,family="binomial")
+summary(efr.logit)
+
+pa.th<-sp.pa%>%
+  filter(sponges %in% c("Th"))%>%
+  select(pa,movement:Ca)%>%
+  mutate(pa=case_when(
+    pa=="absent"~0,
+    pa!="absent"~1))
+
+th.logit<-glm(pa~.,data=pa.th,family="binomial")
+summary(th.logit)

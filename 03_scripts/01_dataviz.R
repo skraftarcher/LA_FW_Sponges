@@ -71,7 +71,7 @@ p3+
 
 
 # for loop to look at all environmental variables
-# steph to trouble shoot this
+
 for(i in 4:24){
   t1<-cbind(sp3$pa,sp3[,i],sp3$sponges)
   colnames(t1)<-c("pa","env","sponges")
@@ -83,6 +83,10 @@ for(i in 4:24){
   ggsave(paste0("04_figures/",ylabel,".jpg"))
 }
 
+
+for(i in 1:5){
+  print(paste("hello for the ",i,"th time"))
+}
 
 
 
