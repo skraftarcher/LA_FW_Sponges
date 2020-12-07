@@ -58,7 +58,9 @@ sppa<-sp2%>%
 (pa.plot<-ggplot()+
   geom_point(data=sppa,aes(x=PC1,y=PC2,color=pa),size=3)+
   theme_bw()+
-    theme(panel.grid = element_blank()))
+    theme(panel.grid = element_blank())+
+    geom_hline(aes(yintercept=0))+
+    geom_vline(aes(xintercept=0)))
 # doesn't look like there's a lot going on. 
 
 # now I'm going to look at sites where we see sponges and see if there is anything distiguishing 
@@ -71,11 +73,14 @@ env.sp<-env[sp2$number!=0,]# this says give me all the rows of the env dataset w
 com.sp<-com[sp2$number!=0,]
 
 # now to do some transformations to do analysis
+
+# HINT this is where you should transform the community data to Presence/Absence 
+
 com.hel<-decostand(com.sp,"hellinger")
 (spe.rda.all <- rda(com.hel ~ ., env.sp)) 
 anova(spe.rda.all)
 # this RDA isn't significant
-(R2adj.all <- RsquareAdj(spe.rda)$adj.r.squared)
+(R2adj.all <- RsquareAdj(spe.rda.all)$adj.r.squared)
 # and explains very little of the variability we're seeing, but we also have an awful lot of 
 # explanatory variables in here. we can do a model selection process and see if we can improve our
 # results
@@ -103,3 +108,5 @@ step.backward$CA$eig[step.backward$CA$eig > mean(step.backward$CA$eig)]
 plot(step.backward)
 
 # when interpreting this remember movement = 1 = lotic (or moving water)
+
+# HINT look at ?decostand
