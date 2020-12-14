@@ -73,10 +73,9 @@ env.sp<-env[sp2$number!=0,]# this says give me all the rows of the env dataset w
 com.sp<-com[sp2$number!=0,]
 
 # now to do some transformations to do analysis
+com.pa<-decostand(com.sp,"pa")
 
-# HINT this is where you should transform the community data to Presence/Absence 
-
-com.hel<-decostand(com.sp,"hellinger")
+com.hel<-decostand(com.pa,"hellinger")
 (spe.rda.all <- rda(com.hel ~ ., env.sp)) 
 anova(spe.rda.all)
 # this RDA isn't significant
@@ -109,4 +108,45 @@ plot(step.backward)
 
 # when interpreting this remember movement = 1 = lotic (or moving water)
 
-# HINT look at ?decostand
+# testing one specific variable
+
+tub.rda<-rda(com.hel~Turb+Si,data=env.sp)
+anova(tub.rda, permutations=how(nperm=999))
+RsquareAdj(tub.rda)
+
+# Making a nice graph 
+
+env2.scores<-data.frame(scores(step.backward, choices=1:2, display="sites"))
+com2.scores<-data.frame(scores(step.backward, choices=1:2, display="species"))
+com.good<-goodness(step.backward)
+(spr<-data.frame(com2.scores[which(com.good[,1]>=0.15|com.good[,2]>=0.15),]))
+spr$Species<-factor(c("T. leidyi","T. horrida","E. fragilis"),levels =c("T. leidyi","T. horrida","E. fragilis")) 
+splabs<-c(expression(italic("T. leidyi")),expression(italic("T. horrida")),expression(italic("E. fragilis")))
+sig.state<-expression(paste("F"["4,41"]," = 2.14, p = 0.005"))
+
+# pulling environmental variable scores out of the results
+model.sum<-summary(step.backward)
+
+env.varscore<-data.frame(model.sum$biplot)
+
+ggplot()+
+  geom_point(aes(x=RDA1,y=RDA2),data=env2.scores,size=2)+
+  expand_limits(y=c(-1.75,1.5),x=c(-1.75,1.75))+
+  theme_bw()+
+  geom_hline(aes(yintercept=0),linetype="dashed")+
+  geom_vline(aes(xintercept=0),linetype="dashed")+
+  geom_point(aes(x=RDA1,y=RDA2,color=Species),data=spr,size=2)+
+#  geom_segment(aes(x=c(0,0,0),y=c(0,0,0),xend=RDA1,yend=RDA2,color=Species),
+#               data=spr,
+#               arrow = arrow(length = unit(0.02, "npc")))+
+  scale_color_brewer(palette = "Dark2",labels=splabs)+
+  geom_text(aes(x=c(0.5,-.61,-.11),y=c(0.1,0.15,-.5)),label=c("Tl","Th","Efr"))+
+  geom_text(aes(x=-1.25,y=1.5),label=sig.state)+
+  geom_point(aes(x=RDA1,y=RDA2),data=env.varscore,size=2,color="blue")+
+  geom_segment(aes(x=c(0,0,0,0),y=c(0,0,0,0),xend=RDA1,yend=RDA2),
+               data=env.varscore,
+               arrow = arrow(length = unit(0.02, "npc")))+
+  geom_text(aes(x=RDA1+.2,y=RDA2+.2),data=env.varscore,label=c("Temp","Cond","Nitrate","Nitrite"))+
+  theme(panel.grid = element_blank())
+
+               
