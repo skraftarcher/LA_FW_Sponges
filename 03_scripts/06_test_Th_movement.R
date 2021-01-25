@@ -18,7 +18,7 @@ sp2b<-sp1 %>%
 
 # running a logistic regression now using glm and a binomial family
 
-Th.glm<-glm(pa~movement,data=sp2,family="binomial")
+Th.glm<-glm(pa~movement,data=sp2b,family="binomial")
 
 # now look at results
 
