@@ -41,4 +41,22 @@ sp3a<-sp2a %>%
 # now make figure
 
 (Efr.p1<-ggplot(data=sp3a)+
-    geom_bar(aes(x=movement,y=prop.sites,fill=pa),stat = "identity"))
+    geom_bar(aes(x=movement,y=prop.sites,fill=pa),stat = "identity")) +
+  labs(title = "Proportion of sites with of E. fragilis based on Movement")
+
+#make columns smaller
+     
+(Efr.p1<-ggplot(data=sp3a)+
+    geom_bar(aes(x=movement,y=prop.sites,fill=pa),stat = "identity", width = 0.5)) +
+  labs(title = "Proportion of sites with of E. fragilis based on Movement")
+
+#make E. fragilis italics
+    
+(Efr.p1<-ggplot(data=sp3a)+
+    geom_bar(aes(x=movement,y=prop.sites,fill=pa),stat = "identity", width = 0.5)) +
+  labs(title = expression('Proportion of sites with of '*italic(E.~fragilis)*' based on Movement'))
+             
+#Edit labels
+
+ggplot(Efr.p1)
+  theme(axis.title.x = element_blank())
