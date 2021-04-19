@@ -93,9 +93,21 @@ print(sp2)
 #9.	Pick one species from above and make a 
 # bar graph showing the information from your table. 
 
+# reordering x axis without creating a factor
+ggplot(data=sp2,aes(x=Turb.cat,y=n.tl)) +        
+  geom_bar(stat="identity")+
+  scale_x_discrete(limits = c("drinking water","acceptable",
+                              "low","moderately low","moderately high",
+                              "high","extremely high"))
+
+# turning variable into a factor
+
+sp2$Turb.cat<-factor(sp2$Turb.cat,levels =c("drinking water","acceptable",
+                                            "low","moderately low","moderately high",
+                                            "high","extremely high") )
+
+
+
 ggplot(data=sp2,aes(x=Turb.cat,y=n.tl)) +        
   geom_bar(stat="identity")
-
-
-
 
