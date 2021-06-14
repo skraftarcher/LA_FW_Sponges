@@ -5,7 +5,7 @@
 # here are some important resources:
 # Fundamentals of Data Visualization by Claus O. Wilke: https://clauswilke.com/dataviz/introduction.html
 # GGplot cookbook: http://www.cookbook-r.com/Graphs/
-# GGplot cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+# GGplot cheatsheet: https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf
 
 # First we should talk about the different types of variables.
 # When it comes to plotting you can have two basic types of variables:
@@ -71,7 +71,7 @@ ggplot(data = data2)+
 # there are other ways to look at the distribution of a single variable
 
 ggplot(data = data2)+
-  geom_density(aes(x=Variable1))
+  geom_density(aes(x=Variable1),fill="black")
 
 # you can used this type of plot to relatively easily compare the distribution of a 
 # variable between categories. For example:
