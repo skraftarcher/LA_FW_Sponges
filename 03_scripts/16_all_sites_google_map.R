@@ -37,6 +37,11 @@ sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summ
 # from here on out everything is going to be the same between google map background and the shapefiles. So I will only demonstrate 
 # with the shapefile example, because its a bit cleaner and easier to see what changes
 
+# now to add sites to each map
+
+#map2+
+ #geom_point(aes(x=Long,y=Lat),data=sites,size=2)
+
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
 (map2<-map2+
