@@ -94,3 +94,4 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 (map1<-map1+
     theme(axis.text = element_text(size=12,family="sans"),
           axis.title= element_text(size=15,family="sans")))
+
