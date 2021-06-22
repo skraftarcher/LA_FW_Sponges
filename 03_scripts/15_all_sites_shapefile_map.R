@@ -1,4 +1,4 @@
-# this script should customize a shapefile map for the locations of where sponge samples were found
+#this script should customize a shapefile map for the locations of where sponge samples were found
 # Written by Abhi Mehrotra, June 15, 2021
 
 # install (if necessary) and load needed packages. The following lines of code will check to see if a package is installed and 
@@ -18,6 +18,8 @@ if(!require(ggmap)) install.packages('ggmap');library(ggmap)
 # this is a shape file with state boundaries
 states<-st_read("/Users/abhimehrotra/Documents/states")
 
+# what you'll notice is this shapefile has a much larger spatial extents than we need. We can change that by cropping it
+la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
 # another way to do this is to subset down to just the Louisiana polygon
 la.c<-states[states$STATE_NAME=="Louisiana",]
 
@@ -26,7 +28,7 @@ plot(la.c)
 
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
 
-sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Sheet2")
+sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
 
 # now to make a pretty map
 theme_set(theme_bw())
@@ -52,16 +54,6 @@ ggplot()+
 map1+
   geom_point(aes(x=Long,y=Lat),data=sites,size=2)
 
-# you can change the size, shape, and color of the site points. If you want sites to be colored by some variable in your site dataset
-# you put the color inside the aesthetics statement. Like this:
-map1+
-  geom_point(aes(x=Long,y=Lat, color=ID),data=sites,size=2)
-
-# that's fine, but the easiest thing to do is to just make sure the thing you want to be on top is the last thing added to the map
-ggplot()+
-  geom_sf(data=la.c)+
-  geom_point(aes(x=Long,y=Lat, color=ID),data=sites,size=2)
-
 # Now that we're done exploring how to change the shape and color of points I will add these to my base map so we can explore other
 # changes we can make
 
@@ -76,17 +68,11 @@ ggplot()+
 if(!require(RColorBrewer))install.packages("RColorBrewer");library(RColorBrewer)
 # color brewer has a lot of palettes you can see them here: 
 display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind friendly filter, but that limits the accessibility of your map
-# here are a couple of good examples
-map1+
-  scale_color_brewer(palette = "Set2")
-
-map1+
-  scale_color_brewer(palette = "Paired")
 
 # note you can change the title of the legend here too:
 
 (map1<-map1+
-    scale_color_brewer(palette = "Paired",name="Sites"))
+    scale_color_brewer(palette = "Dark2",name="Sites"))
 
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
@@ -94,25 +80,24 @@ map1+
     ylab("Latitude")+
     xlab("Longitude"))
 
-# other things you might want to do-
+# other things you might want to do
 
 # get rid of the grid lines in the background:
-map1+
-  theme(panel.grid = element_blank())
+(map1<-map1+
+  theme(panel.grid = element_blank()))
 
 # move the legend
-map1+
-  theme(legend.position = "top")
+(map1<-map1+
+  theme(legend.position = "top"))
 
 # center the title of the legend
-map1+
-  theme(legend.title.align = 0.5)
+(map1<-map1+
+  theme(legend.title.align = 0.5))
 
 # you can also make something bold or italic
-
-map1+
+(map1<-map1+
   theme(legend.title.align = 0.5,
         legend.text = element_text(size=12,family="sans",face = "italic"),
         legend.title = element_text(size=20,family="sans",face = "bold"),
         axis.text = element_text(size=12,family="sans"),
-        axis.title= element_text(size=15,family="sans"))
+        axis.title= element_text(size=15,family="sans")))

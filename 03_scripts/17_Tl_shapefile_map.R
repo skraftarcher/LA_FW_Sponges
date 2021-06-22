@@ -28,7 +28,7 @@ plot(la.c)
 
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
 
-sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Sheet4")
+sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Tl")
 
 # now to make a pretty map
 theme_set(theme_bw())
