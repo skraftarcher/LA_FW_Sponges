@@ -17,7 +17,7 @@ if(!require(ggmap)) install.packages('ggmap');library(ggmap)
 # if you want to use google maps you have to go here and register: https://cloud.google.com/maps-platform/
 # for trial purposes you can use my key, but if you decide to keep using google maps for things, please change the key to your own.
 register_google(key="AIzaSyC62_TAASDWCV_I6e6k5uzNf5i-hCWeNb4")
-# set the boundary box for the backgroun map
+# set the boundary box for the background map
 la<-c(-94.15,29,-89.5,33.15)
 # get a google map background
 la.map.h<-get_map(location=la,source="google",maptype="hybrid",crop=FALSE)
@@ -25,7 +25,6 @@ la.map.h<-get_map(location=la,source="google",maptype="hybrid",crop=FALSE)
 ggmap(la.map.h)
 
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
-
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
 
 # this assigns the answer to x but doesn't show you what it is in your console. This next line does both:
@@ -36,11 +35,6 @@ sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summ
 
 # from here on out everything is going to be the same between google map background and the shapefiles. So I will only demonstrate 
 # with the shapefile example, because its a bit cleaner and easier to see what changes
-
-# now to add sites to each map
-
-#map2+
- #geom_point(aes(x=Long,y=Lat),data=sites,size=2)
 
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
@@ -64,8 +58,7 @@ map2+
 
 # you can also make something bold or italic
 map2+
-  theme(legend.title.align = 0.5,
-        legend.text = element_text(size=12,family="sans",face = "italic"),
+  theme(legend.text = element_text(size=12,family="sans",face = "italic"),
         legend.title = element_text(size=20,family="sans",face = "bold"),
         axis.text = element_text(size=12,family="sans"),
         axis.title= element_text(size=15,family="sans"))

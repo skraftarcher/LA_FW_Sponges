@@ -23,15 +23,8 @@ la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
 # another way to do this is to subset down to just the Louisiana polygon
 la.c<-states[states$STATE_NAME=="Louisiana",]
 
-plot(la.b)
-plot(la.c)
-
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
-
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Tp")
-
-# now to make a pretty map
-theme_set(theme_bw())
 
 # First I'm going to make a base map that we can work through adding things to, that way you can pick and chose and make the map your own.
 # if you want to use one of the shapefile base maps use this code to make your base map
@@ -41,22 +34,9 @@ theme_set(theme_bw())
 # this assigns the answer to x but doesn't show you what it is in your console. This next line does both:
 (x<-793*8)
 
-ggplot()+
-  geom_sf(data=la.c,fill="blue", color="orange",alpha=.5,size=2)
-# the size here increases the thickness of the border. I don't recommend doing this in a map, but I wanted to show you all the
-# possibilities
-
-# from here on out everything is going to be the same between google map background and the shapefiles. So I will only demonstrate 
-# with the shapefile example, because its a bit cleaner and easier to see what changes
-
 # now to add sites to each map
-
-map1+
-  geom_point(aes(x=Long,y=Lat),data=sites,size=2)
-
 # Now that we're done exploring how to change the shape and color of points I will add these to my base map so we can explore other
 # changes we can make
-
 (map1<-map1+
     geom_sf(data=la.c)+
     geom_point(aes(x=Long,y=Lat, color=Tp),data=sites,size=2))
