@@ -42,3 +42,5 @@ sp2$Nitrate.cat<-factor(sp2$Nitrate.cat,levels =c("none", "low", "medium", "high
                                                   "outlier"))
 ggplot(data=sp2,aes(x=Nitrate.cat,y=n.efr)) +        
   geom_bar(stat="identity")
+#end
+
