@@ -49,4 +49,6 @@ p2<-ggplot(data=sp2, aes(x=cond.cat, fill=n.efr)) +
   geom_bar()
 
 (p2<-p2+
-    theme_bw())
+    theme_bw()+
+    theme(axis.text = element_text(size=8, color ="red"),
+    panel.grid = element_blank()))
