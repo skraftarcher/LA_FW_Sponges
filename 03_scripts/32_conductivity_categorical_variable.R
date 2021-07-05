@@ -34,7 +34,7 @@ sp2<-sp1 %>%
            cond >= 1000 ~"Extremely High Conductivity"))
 
 # look at how many sites each sponge was found at within each category
-sp2%>%
+sp2 <- sp2%>%
   mutate(efr2=ifelse(Efr==0,0,1),# first I'm creating a new variable that is 0 if the sponge wasn't found at a site and 1 if it was
          tl2=ifelse(Tl==0,0,1),
          th2=ifelse(Th==0,0,1))%>%
@@ -45,8 +45,10 @@ sp2%>%
             th=sum(th2,rm.na=T))# the rm.na tells it to ignore NAs
 
 # create bar graph with categorical variable for Efr
-p2<-ggplot(data=sp2, aes(x=cond.cat, fill=Efr)) +        
+p2<-ggplot(data=sp2, aes(x=cond.cat, fill=n.efr)) +        
   geom_bar()
 
 (p2<-p2+
-    theme_bw())
+    theme_bw()+
+    theme(axis.text = element_text(size=8, color ="red"),
+    panel.grid = element_blank()))
