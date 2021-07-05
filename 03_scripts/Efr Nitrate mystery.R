@@ -23,15 +23,21 @@ sp2<-sp1 %>%
            Nitrate < 2 & Nitrate > 1 ~"medium",
            Nitrate < 1 & Nitrate > 0 ~"low",
            Nitrate == 0 ~"none"),
-         efr2=ifelse(Efr==0,0,1),# first I'm creating a new variable that is 0 if the sponge wasn't found at a site and 1 if it was
-         tl2=ifelse(Tl==0,0,1),
-         th2=ifelse(Th==0,0,1))%>%
+         efr2=case_when(Efr==0~0,
+                        is.na(Efr)~0,
+                        Efr!=0~1),# first I'm creating a new variable that is 0 if the sponge wasn't found at a site and 1 if it was
+         tl2=case_when(Tl==0~0,
+                       is.na(Tl)~0,
+                       Tl!=0~1),
+         th2=case_when(Th==0~0,
+                        is.na(Th)~0,
+                        Th!=0~1))%>%
   ungroup()%>%
   group_by(Nitrate.cat)%>%
   summarize(n.sites=n(),
-            n.efr=sum(efr2,rm.na=T),# this gives me the total number of sites where Efr was found in each category of pH (because I grouped by my pH categorical variable)
-            n.tl=sum(tl2,rm.na=T),
-            th=sum(th2,rm.na=T))
+            n.efr=sum(efr2,na.rm = T),# this gives me the total number of sites where Efr was found in each category of pH (because I grouped by my pH categorical variable)
+            n.tl=sum(tl2,na.rm = T),
+            n.th=sum(th2,na.rm = T))
 print(sp2)
 ggplot(data=sp2,aes(x=Nitrate.cat,y=n.efr)) +        
   geom_bar(stat="identity")+
@@ -42,5 +48,6 @@ sp2$Nitrate.cat<-factor(sp2$Nitrate.cat,levels =c("none", "low", "medium", "high
                                                   "outlier"))
 ggplot(data=sp2,aes(x=Nitrate.cat,y=n.efr)) +        
   geom_bar(stat="identity")
+
 #end
 
