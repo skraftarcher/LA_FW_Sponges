@@ -26,6 +26,9 @@ la.c<-states[states$STATE_NAME=="Louisiana",]
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
 
+# now to make a pretty map
+theme_set(theme_bw())
+
 # First I'm going to make a base map that we can work through adding things to, that way you can pick and chose and make the map your own.
 # if you want to use one of the shapefile base maps use this code to make your base map
 (map1<-ggplot()+
@@ -33,6 +36,9 @@ sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summ
 
 # this assigns the answer to x but doesn't show you what it is in your console. This next line does both:
 (x<-793*8)
+
+# from here on out everything is going to be the same between google map background and the shapefiles. So I will only demonstrate 
+# with the shapefile example, because its a bit cleaner and easier to see what changes
 
 # now to add sites to each map
 # Now that we're done exploring how to change the shape and color of points I will add these to my base map so we can explore other
@@ -64,19 +70,19 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 
 # get rid of the grid lines in the background:
 (map1<-map1+
-  theme(panel.grid = element_blank()))
+    theme(panel.grid = element_blank()))
 
 # move the legend
 (map1<-map1+
-  theme(legend.position = "top"))
+    theme(legend.position = "top"))
 
 # center the title of the legend
 (map1<-map1+
-  theme(legend.title.align = 0.5))
+    theme(legend.title.align = 0.5))
 
 # you can also make something bold or italic
 (map1<-map1+
-  theme(legend.text = element_text(size=12,family="sans",face = "italic"),
-        legend.title = element_text(size=20,family="sans",face = "bold"),
-        axis.text = element_text(size=12,family="sans"),
-        axis.title= element_text(size=15,family="sans")))
+    theme(legend.text = element_text(size=12,family="sans",face = "italic"),
+          legend.title = element_text(size=20,family="sans",face = "bold"),
+          axis.text = element_text(size=12,family="sans"),
+          axis.title= element_text(size=15,family="sans")))

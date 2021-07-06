@@ -27,14 +27,28 @@ ggmap(la.map.h)
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
 
+# now to make a pretty map
+theme_set(theme_bw())
+
 # this assigns the answer to x but doesn't show you what it is in your console. This next line does both:
 (x<-793*8)
-  
+
 # if you want to use google maps as your base file use this code:
 (map2<-ggmap(la.map.h))
 
-# from here on out everything is going to be the same between google map background and the shapefiles. So I will only demonstrate 
-# with the shapefile example, because its a bit cleaner and easier to see what changes
+# now to add sites to each map
+(map2<-map2+
+    geom_point(aes(x=Long,y=Lat, color=ID),data=sites,size=2))
+
+# other good ones are:
+if(!require(RColorBrewer))install.packages("RColorBrewer");library(RColorBrewer)
+# color brewer has a lot of palettes you can see them here: 
+display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind friendly filter, but that limits the accessibility of your map
+
+# note you can change the title of the legend here too:
+
+(map2<-map2+
+    scale_color_brewer(palette = "Dark2",name="Sites"))
 
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
@@ -42,27 +56,23 @@ sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summ
     ylab("Latitude")+
     xlab("Longitude"))
 
-# other things you might want to do-
+# other things you might want to do
 
 # get rid of the grid lines in the background:
-map2+
-  theme(panel.grid = element_blank())
+(map2<-map2+
+    theme(panel.grid = element_blank()))
 
 # move the legend
-map2+
-  theme(legend.position = "top")
+(map2<-map2+
+    theme(legend.position = "top"))
 
 # center the title of the legend
-map2+
-  theme(legend.title.align = 0.5)
+(map2<-map2+
+    theme(legend.title.align = 0.5))
 
 # you can also make something bold or italic
-map2+
-  theme(legend.text = element_text(size=12,family="sans",face = "italic"),
-        legend.title = element_text(size=20,family="sans",face = "bold"),
-        axis.text = element_text(size=12,family="sans"),
-        axis.title= element_text(size=15,family="sans"))
-
-# now to add sites to each map
-map2+
-  geom_point(aes(x=Long,y=Lat),data=sites,size=2)
+(map2<-map2+
+    theme(legend.text = element_text(size=12,family="sans",face = "italic"),
+          legend.title = element_text(size=20,family="sans",face = "bold"),
+          axis.text = element_text(size=12,family="sans"),
+          axis.title = element_text(size=15,family="sans")))
