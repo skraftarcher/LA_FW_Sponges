@@ -48,7 +48,7 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 # note you can change the title of the legend here too:
 
 (map2<-map2+
-    scale_color_brewer(palette = "Dark2",name="Sites"))
+    scale_color_brewer(palette = "YlOrRd",name="Sites"))
 
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
