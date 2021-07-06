@@ -23,13 +23,11 @@ la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
 # another way to do this is to subset down to just the Louisiana polygon
 la.c<-states[states$STATE_NAME=="Louisiana",]
 
-
-plot(la.b)
-plot(la.c)
-
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
-
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Sa")
+
+# now to make a pretty map
+theme_set(theme_bw())
 
 # First I'm going to make a base map that we can work through adding things to, that way you can pick and chose and make the map your own.
 # if you want to use one of the shapefile base maps use this code to make your base map

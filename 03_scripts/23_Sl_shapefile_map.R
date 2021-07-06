@@ -26,6 +26,9 @@ la.c<-states[states$STATE_NAME=="Louisiana",]
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
 sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Sl")
 
+# now to make a pretty map
+theme_set(theme_bw())
+
 # First I'm going to make a base map that we can work through adding things to, that way you can pick and chose and make the map your own.
 # if you want to use one of the shapefile base maps use this code to make your base map
 (map1<-ggplot()+
