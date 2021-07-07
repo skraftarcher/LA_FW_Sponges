@@ -16,7 +16,7 @@ if(!require(ggmap)) install.packages('ggmap');library(ggmap)
 
 # another way to do it is to use a shapefile as a background
 # this is a shape file with state boundaries
-states<-st_read("/Users/abhimehrotra/Documents/states")
+states<-st_read("/Users/abhimehrotra/Desktop/Sponge Hunters Webpage/states")
 
 # what you'll notice is this shapefile has a much larger spatial extents than we need. We can change that by cropping it
 la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
