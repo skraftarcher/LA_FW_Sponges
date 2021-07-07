@@ -16,7 +16,7 @@ if(!require(ggmap)) install.packages('ggmap');library(ggmap)
 
 # another way to do it is to use a shapefile as a background
 # this is a shape file with state boundaries
-states<-st_read("/Users/abhimehrotra/Desktop/Sponge Hunters Webpage/states")
+states<-st_read("/Users/abhimehrotra/Desktop/spongehunters/map_data_files/states")
 
 # what you'll notice is this shapefile has a much larger spatial extents than we need. We can change that by cropping it
 la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
@@ -24,7 +24,7 @@ la.b<-st_crop(states,xmin=-94.15,xmax=-89,ymin=29,ymax=33.15)
 la.c<-states[states$STATE_NAME=="Louisiana",]
 
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
-sites<-read_xlsx("/Users/abhimehrotra/Desktop/Sponge Hunters Webpage/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Tl")
+sites<-read_xlsx("/Users/abhimehrotra/Desktop/spongehunters/map_data_files/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="Tl")
 
 # now to make a pretty map
 theme_set(theme_bw())

@@ -25,7 +25,7 @@ la.map.h<-get_map(location=la,source="google",maptype="hybrid",crop=FALSE)
 ggmap(la.map.h)
 
 # now I'm going to bring in some example sites- you'll replace this with the correct function and file path to bring in your sites
-sites<-read_xlsx("/Users/abhimehrotra/Desktop/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
+sites<-read_xlsx("/Users/abhimehrotra/Desktop/spongehunters/map_data_files/Miller_sponge gps coordinates_summer 2021.xlsx", sheet="All Sites")
 
 # now to make a pretty map
 theme_set(theme_bw())
