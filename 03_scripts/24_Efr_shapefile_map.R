@@ -42,7 +42,7 @@ theme_set(theme_bw())
 # changes we can make
 (map1<-map1+
     geom_sf(data=la.c)+
-    geom_point(aes(x=Long,y=Lat, color=Efr),data=sites,size=2))
+    geom_point(aes(x=Long,y=Lat, color=Efr),data=sites,size=3))
 
 # Now I'm going to show you different ways to change the colors of the points.
 # if you have just a few points (or categories of points) you can manually assign colors:
