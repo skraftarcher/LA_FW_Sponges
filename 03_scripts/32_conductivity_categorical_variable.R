@@ -40,15 +40,20 @@ sp2 <- sp2%>%
          th2=ifelse(Th==0,0,1))%>%
   group_by(cond.cat)%>%
   summarize(n.sites=n(),
-            n.efr=sum(efr2,rm.na=T),# this gives me the total number of sites where Efr was found in each category of cond (because I grouped by my cond categorical variable)
-            n.tl=sum(tl2,rm.na=T),
-            th=sum(th2,rm.na=T))# the rm.na tells it to ignore NAs
+            n.efr=sum(efr2,na.rm = T),# this gives me the total number of sites where Efr was found in each category of cond (because I grouped by my cond categorical variable)
+            n.tl=sum(tl2,na.rm = T),
+            th=sum(th2,na.rm = T))# the rm.na tells it to ignore NAs
 
 # create bar graph with categorical variable for Efr
-p2<-ggplot(data=sp2, aes(x=cond.cat, fill=n.efr)) +        
-  geom_bar()
+p2<-ggplot(data=sp2, aes(x=cond.cat, y=n.efr,fill=n.efr)) +        
+  geom_bar(stat = "identity")
 
 (p2<-p2+
     theme_bw()+
     theme(axis.text = element_text(size=8, color ="red"),
     panel.grid = element_blank()))
+
+
+# show distribution of conductivity
+ggplot(data=sp1)+
+  geom_boxplot(aes(y=cond,group=Efr,fill=as.factor(Efr)))

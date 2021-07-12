@@ -66,7 +66,7 @@ data2<-data.frame(Category1 = sample(factor(x = c("Bad","OK","Fair","Good","Grea
 
 # first lets do a histogram
 ggplot(data = data2)+
-  geom_histogram(aes(x=Variable1),bins = 10) # play around with the bins number to see what that does
+  geom_histogram(aes(x=Variable1),bins = 20) # play around with the bins number to see what that does
 
 # there are other ways to look at the distribution of a single variable
 
@@ -128,8 +128,8 @@ ggplot(data = data2)+
 
 # or by using facets
 ggplot(data = data2)+
-  geom_point(aes(x=Variable1,y=Variable2))+
-  facet_wrap(~Category2)
+  geom_point(aes(x=Variable1,y=Variable2,color=Category1))+
+  facet_grid(Category1~Category2)
 
 # There's often multiple ways to display the same Lets say we want to
 # look at how the value of Variable 2 varies depending on our two categories.
