@@ -16,21 +16,37 @@ spnames<-unique(sp_pa$sponges)
 
 sp.mat<-matrix(nrow=length(spnames),ncol = length(spnames),
                dimnames = list(spnames,spnames))
+sp.mat2<-matrix(nrow=length(spnames),ncol = length(spnames),
+               dimnames = list(spnames,spnames))
 spn<-length(spnames)
 for(i in 1:(spn-1)){
   for(j in (i+1):spn){
-  t1<-sum(filter(sp_pa,sponges==spnames[i])$pa*filter(sp_pa,sponges==spnames[j])$pa)
-  sp.mat[i,j]<-t1
-  sp.mat[j,i]<-t1
+  t1<-filter(sp_pa,sponges==spnames[i])$pa
+  t2<-filter(sp_pa,sponges==spnames[j])$pa
+  t3<-sum(t1*t2)
+  sp.mat[i,j]<-t3
+  sp.mat[j,i]<-t3
+  sp.mat2[i,j]<-t3/(sum(t1)+sum(t2)-t3)
+  sp.mat2[j,i]<-t3/(sum(t1)+sum(t2)-t3)
   }
 }
 
-sp_cooccur<-data.frame(sp.mat)%>%
+sp_cooccur.n<-data.frame(sp.mat)%>%
   mutate(Sponge1=rownames(.))%>%
   pivot_longer(-Sponge1,names_to = "Sponge2",values_to="N.Sites")%>%
   distinct()
 
-ggplot(sp_cooccur)+
-  geom_tile(aes(x=Sponge1,y=Sponge2,fill=N.Sites))
+ggplot(sp_cooccur.n)+
+  geom_tile(aes(x=Sponge1,y=Sponge2,fill=N.Sites))+
+  scale_fill_viridis_c(option="C")
+
+sp_cooccur.p<-data.frame(sp.mat2)%>%
+  mutate(Sponge1=rownames(.))%>%
+  pivot_longer(-Sponge1,names_to = "Sponge2",values_to="P.Sites")%>%
+  distinct()
+
+ggplot(sp_cooccur.p)+
+  geom_tile(aes(x=Sponge1,y=Sponge2,fill=P.Sites))+
+  scale_fill_viridis_c(option="C")
 
             
