@@ -59,10 +59,15 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
 (map1<-map1+
-    ylab("Latitude")+
-    xlab("Longitude"))
+    theme(axis.title.x=element_blank())+
+    ylab("Latitude"))
 
 # other things you might want to do
+
+# add title, change size, and make it italic
+(map1<-map1+
+    ggtitle("Anheteromeyenia argyrosperma")+
+    theme(plot.title = element_text(lineheight=.8,size=20,family="sans",face="italic",color="orange")))
 
 # get rid of the grid lines in the background:
 (map1<-map1+
@@ -72,7 +77,7 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 (map1<-map1+
     theme(legend.position="none"))
 
-# you can also make something bold or italic
+# you can also change the font and the size of axis text
 (map1<-map1+
     theme(axis.text = element_text(size=12,family="sans"),
           axis.title= element_text(size=15,family="sans")))
