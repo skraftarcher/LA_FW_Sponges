@@ -47,7 +47,7 @@ data1<- data.frame(Condition = factor(x = c("Bad","OK","Fair","Good","Great"),
 
 # now lets make a basic bar plot
 
-ggplot(data = data1)+
+p1<-ggplot(data = data1)+
   geom_bar(aes(x=Condition,y=N.Samples),stat = "identity")
 
 # while there are a lot of ways we can improve the design of this plot, it does
@@ -153,3 +153,23 @@ data2%>%
   summarize(mean.Variable2 = mean(Variable2))%>%
   ggplot()+
   geom_tile(aes(x=Category1,y=Category2,fill=mean.Variable2))
+
+(p1<-ggplot(data = data1)+
+    geom_hline(aes(yintercept=50),linetype="dashed",color="darkgreen",alpha=.6)+
+  geom_bar(aes(x=Condition,y=N.Samples,fill=Condition),color="purple",stat = "identity",width=.5))
+
+p1+
+  theme_bw()+
+  theme(axis.text = element_text(size=12,angle=0,hjust=1,vjust=.5,color="red"),
+        plot.title = element_text(hjust = 0.5,size=20,face="italic",family="serif"),
+        axis.title.x = element_text(size=15,face="bold"),
+        axis.title.y=element_text(size=20,color="green"),
+        legend.position = "none",
+        panel.grid=element_blank())+
+  scale_x_discrete(labels = c("Bad","O \n K","Fa \n ir","Good","Great"))+
+  ggtitle("Our ugly plot")+
+  ylab("Number of samples")+
+  xlab("Something very long so \n its good to break it up")+
+  geom_vline(aes(xintercept=2.5))+
+  geom_abline(aes(slope=-10,intercept=90))
+  

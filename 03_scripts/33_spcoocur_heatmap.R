@@ -18,7 +18,9 @@ sp.mat<-matrix(nrow=length(spnames),ncol = length(spnames),
                dimnames = list(spnames,spnames))
 sp.mat2<-matrix(nrow=length(spnames),ncol = length(spnames),
                dimnames = list(spnames,spnames))
+
 spn<-length(spnames)
+
 for(i in 1:(spn-1)){
   for(j in (i+1):spn){
   t1<-filter(sp_pa,sponges==spnames[i])$pa
