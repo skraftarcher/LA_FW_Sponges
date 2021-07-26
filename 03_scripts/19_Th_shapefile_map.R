@@ -67,7 +67,7 @@ display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind
 # add title, change size, and make it italic
 (map1<-map1+
     ggtitle("Trochospongilla horrida")+
-    theme(plot.title = element_text(lineheight=.8,size=20,family="sans",face="italic",color="orange")))
+    theme(plot.title = element_text(hjust = 0.5, lineheight = 0.8, size = 20, family = "sans", face = "bold.italic")))
 
 # get rid of the grid lines in the background:
 (map1<-map1+

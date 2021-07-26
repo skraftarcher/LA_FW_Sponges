@@ -45,7 +45,10 @@ sp2 <- sp2 %>%
 
 # create bar graph with categorical variable for Tl
 p2 <- ggplot(data = sp2, aes(y = cond.cat, x = n.tl, fill = n.tl)) +        
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") +
+  scale_y_discrete(limits = c("Low Conductivity", "Moderately Low Conductivity", 
+                              "Moderately High Conductivity", "High Conductivity", 
+                              "Extremely High Conductivity"))
 
 (p2 <- p2+
     theme_bw()+

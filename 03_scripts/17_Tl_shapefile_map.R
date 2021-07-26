@@ -53,22 +53,21 @@ if(!require(RColorBrewer))install.packages("RColorBrewer");library(RColorBrewer)
 display.brewer.all(colorblindFriendly = TRUE) # you can turn off the color blind friendly filter, but that limits the accessibility of your map
 
 # note you can change the title of the legend here too:
-
 (map1<-map1+
     scale_color_brewer(palette = "Dark2",name="Trochospongilla leidyi"))
 
 # now lets look at changing the axis labels. There are a couple ways that you can do this (a good resource: http://www.cookbook-r.com/Graphs/)
 # I am going to show you the easiest way if you aren't changing other things about the axes (which you don't typically have to do with a map)
 (map1<-map1+
-        theme(axis.title.y=element_blank())+
-        xlab("Longitude"))
+    theme(axis.title.y=element_blank(), axis.text.y = element_blank())+
+    xlab("Longitude"))
 
 # other things you might want to do
 
 # add title, change size, and make it italic
 (map1<-map1+
-        ggtitle("Trochospongilla leidyi")+
-        theme(plot.title = element_text(lineheight=.8,size=20,family="sans",face="italic",color="orange")))
+    ggtitle("Trochospongilla leidyi")+
+    theme(plot.title = element_text(hjust = 0.5, lineheight = 0.8, size = 20, family = "sans", face = "bold.italic")))
 
 # get rid of the grid lines in the background:
 (map1<-map1+
