@@ -94,3 +94,4 @@ ggplot(data = sp2)+
 ggplot(data = sp2)+
   geom_point(aes(x = n.efr, y = n.tl, color = cond.cat))+
   facet_grid(n.efr ~ n.tl)
+
